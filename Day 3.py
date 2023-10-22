@@ -19,15 +19,11 @@ def rucksack_compartments(contents):
 
     return [compartment_one, compartment_two]
 
-def duplicates(compartment_one, compartment_two):
+def identify_duplicates(collection):
     """
-    Determine the duplicated element between the compartments by
-    taking set intersection
+    Identify duplicated element between a members of a collection
     """
-    compartment_one = set(compartment_one)
-    compartment_two = set(compartment_two)
-
-    return compartment_one & compartment_two
+    return set.intersection(*[set(i) for i in collection])
 
 def get_priority(item):
     """
