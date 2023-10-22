@@ -62,7 +62,7 @@ def second_score_of(entry):
     """
     outcome_value = outcome_scores[instruction_dictionary[entry[1]]]
     player_move = generate_player_move(entry)
-    player_move_value = shape_values[player_moves_dictionary[player_move]]
+    player_move_value = shape_values[player_move]
     return outcome_value + player_move_value
 
 def generate_player_move(entry):
@@ -77,7 +77,7 @@ def generate_player_move(entry):
     player_move = (opponent_move + offset) % 3
     if player_move == 0:
         player_move = 3
-    player_move = player_moves_inv[shape_values_inv[player_move]]
+    player_move = shape_values_inv[player_move]
     return player_move
     
     
