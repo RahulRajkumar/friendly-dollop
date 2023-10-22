@@ -2,7 +2,12 @@
 #
 # Determine the sum of the priorities of misplaced items
 
+import helper
 FILENAME = "Day 3 Input.txt"
+# Rucksacks and rucksacks broken down into their two compartments
+rucksacks = helper.ingest_input(FILENAME)
+compartmentalized_rucksacks = [rucksack_compartments(sack) for
+                                   sack in rucksacks]
 
 def rucksack_compartments(contents):
     """
@@ -48,15 +53,6 @@ def get_priority(item):
     # Uppercase letters are mapped to 27,...,52
     if ascii_item >= 65 and ascii_item <= 90:
         return ascii_item - UPPER_START + 27
-
-# Input file is newline separated. Each line contains a rucksack
-with open(FILENAME) as f:
-    rucksacks = [line for line in f.read().split("\n")]
-    # Remove the final, empty element from rucksacks
-    rucksacks.pop()
-    compartmentalized_rucksacks = [rucksack_compartments(sack) for
-                                   sack in rucksacks]
-
 
 ### Part One
 

@@ -1,6 +1,9 @@
 # Solving Day 4: Camp Cleanup
 
+import helper
 FILENAME = "Day 4 Input.txt"
+data = helper.ingest_input(FILENAME)
+pairs = [line.split(",") for line in data]
 
 def generate_section(section_string):
     """
@@ -14,11 +17,6 @@ def generate_section(section_string):
 
 def full_overlap(set_one, set_two):
     return set.issubset(set_one, set_two) or set.issuperset(set_one, set_two)
-
-with open(FILENAME) as f:
-    pairs = [line.split(",") for line in f.read().split("\n")]
-    # Remove final, empty element from pairs
-    pairs.pop()
 
 full_overlap_count = 0
 overlap_count = 0

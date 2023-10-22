@@ -1,8 +1,10 @@
 # Solve Day 5: Supply Stacks
 
 from collections import deque
+import helper
 
 FILENAME = "Day 5 Input.txt"
+data = helper.ingest_input(FILENAME)
 # Choose which part of the challenge is being solved
 part_one = False
 part_two = True
@@ -34,10 +36,6 @@ def move_in_bulk(quantity, source, destination):
     """
     move_one_at_a_time(quantity, source, "temp")
     move_one_at_a_time(quantity, "temp", destination)
-
-with open(FILENAME) as f:
-    data = f.read().split("\n")
-    data.pop()
 
 for i in range(max_stack_height):
     ingest_across_stacks(data[i])

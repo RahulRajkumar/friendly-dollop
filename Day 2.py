@@ -2,7 +2,9 @@
 #
 # Compute the total score of a Rock Paper Scissors Tournament Guide
 
+import helper
 FILENAME = "Day 2 Input.txt"
+guide = [line.split() for line in helper.ingest_input(FILENAME)]
 
 opponent_moves_dictionary = {'A' : "Rock", 'B' : "Paper", 'C' :
                              "Scissors"}
@@ -51,9 +53,9 @@ def score_of(entry):
 # Input file is newline separated. Each line contains a
 # (space-separated) pair of letters denoting first the opponent's move
 # and then your response
-with open(FILENAME) as f:
-    guide = [line.split() for line in f.read().split("\n")]
-    # Remove the final, empty element from guide
-    guide.pop()
+# with open(FILENAME) as f:
+#     guide = [line.split() for line in f.read().split("\n")]
+#     # Remove the final, empty element from guide
+#     guide.pop()
 
 scores = [score_of(entry) for entry in guide]
