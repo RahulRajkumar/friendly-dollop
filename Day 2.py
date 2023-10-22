@@ -61,23 +61,30 @@ def second_score_of(entry):
     value of the player's required move
     """
     outcome_value = outcome_scores[instruction_dictionary[entry[1]]]
-    player_move = generate_player_move(entry)
-    player_move_value = shape_values[player_move]
-    return outcome_value + player_move_value
+    player_value = player_move_value(entry)
+    return outcome_value + player_value
 
-def generate_player_move(entry):
+def player_move_value(entry):
     """
     Take an entry from the strategy guide of the form
-    entry = ["opponent_move", "outcome"]and return the player_move that
-    satisfies the entry
+    entry = ["opponent_move", "outcome"] and return the value of the
+    player_move that satisfies the entry
+
+    A Player Wins iff the difference of the value of their move with
+    the value of the opponent's move is 1 mod 3
+    A Draw is 0 mod 3, and a Loss is 2 mod 3
+
+    So we can reverse to obtain the value (mod 3) of the required
+    player move to obtain the desired outcome
     """
     opponent_move, instruction = entry
     offset = outcome_dictionary_inv[instruction_dictionary[instruction]]
     opponent_move = shape_values[opponent_moves_dictionary[opponent_move]]
+    # Since the value of "Scissors" is 3, when we obtain the player
+    # move for scissors we must choose the correct representative mod 3
     player_move = (opponent_move + offset) % 3
     if player_move == 0:
         player_move = 3
-    player_move = shape_values_inv[player_move]
     return player_move
     
     
