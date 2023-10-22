@@ -68,3 +68,14 @@ duplicates_in_rucksacks = [identify_duplicates(pack).pop() for pack in
 priorities = [get_priority(element) for element in duplicates_in_rucksacks]
 
 print(sum(priorities))
+
+### Part Two
+
+# Guaranteed to have elves groupable into groups of 3
+n_groups = int(len(rucksacks) / 3)
+grouped_packs = [rucksacks[3 * i : 3*i + 3]for i in range(n_groups)]
+
+badges = [identify_duplicates(pack).pop() for pack in grouped_packs]
+badge_priorities = [get_priority(element) for element in badges]
+
+print(sum(badge_priorities))
