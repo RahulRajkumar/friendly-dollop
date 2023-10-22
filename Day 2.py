@@ -97,3 +97,4 @@ with open(FILENAME) as f:
     guide.pop()
 
 scores = [second_score_of(entry) for entry in guide]
+print(sum(scores))
