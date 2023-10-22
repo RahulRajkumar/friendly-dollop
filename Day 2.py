@@ -54,8 +54,10 @@ def score_of(entry):
     return outcome_scores[outcome] + shape_values[player_move]
 
 def second_score_of(entry):
-    opponent_move, player_move = entry[0], generate_player_move(entry)
-    return score_of([opponent_move, player_move])
+    outcome_value = outcome_scores[instruction_dictionary[entry[1]]]
+    player_move = generate_player_move(entry)
+    player_move_value = shape_values[player_moves_dictionary[player_move]]
+    return outcome_value + player_move_value
 
 def generate_player_move(entry):
     opponent_move, instruction = entry
