@@ -20,8 +20,14 @@ with open(FILENAME) as f:
     # Remove final, empty element from pairs
     pairs.pop()
 
-overlaps = 0
+full_overlap_count = 0
+overlap_count = 0
+
 for assignment in pairs:
     elf_one, elf_two = assignment
     section_one, section_two = [generate_section(elf_one), generate_section(elf_two)]
-    overlaps += full_overlap(section_one, section_two)
+    full_overlap_count += full_overlap(section_one, section_two)
+    overlap_count += not set.isdisjoint(section_one, section_two)
+
+print(f"Number of assignments that completely overlap: {full_overlap_count}")
+print(f"Number of assignments with any overlap: {overlap_count:d}")
