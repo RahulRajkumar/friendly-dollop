@@ -12,17 +12,6 @@ shape_values = {"Rock" : 1, "Paper" : 2, "Scissors" : 3}
 outcome_dictionary = {0 : "Draw", 1 : "Win", 2 : "Lose"}
 outcome_scores = {"Lose" : 0, "Draw" : 3, "Win" : 6}
 
-# Input file is newline separated. Each line contains a
-# (space-separated) pair of letters denoting first the opponent's move
-# and then your response
-with open(FILENAME) as f:
-    guide = [line.split() for line in f.read().split("\n")][:-1]
-    # Remove the final, empty element from guide
-    guide.pop()
-
-scores = [score_of(entry) for entry in guide]
-print(sum(scores))
-
 def value_of(entry):
     """
     Take an entry from the strategy guide of the form
@@ -54,8 +43,17 @@ def score_of(entry):
     the entry. A score is the sum of the value of the result and the
     value of the player's move
     """
-    
     outcome = outcome_of(entry)
     player_move = player_moves_dictionary[entry[1]]
     
     return outcome_scores[outcome] + shape_values[player_move]
+
+# Input file is newline separated. Each line contains a
+# (space-separated) pair of letters denoting first the opponent's move
+# and then your response
+with open(FILENAME) as f:
+    guide = [line.split() for line in f.read().split("\n")]
+    # Remove the final, empty element from guide
+    guide.pop()
+
+scores = [score_of(entry) for entry in guide]
