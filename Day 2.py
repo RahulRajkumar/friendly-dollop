@@ -11,6 +11,11 @@ player_moves_dictionary = {'X' : "Rock", 'Y' : "Paper", 'Z' :
 shape_values = {"Rock" : 1, "Paper" : 2, "Scissors" : 3}
 outcome_dictionary = {0 : "Draw", 1 : "Win", 2 : "Lose"}
 outcome_scores = {"Lose" : 0, "Draw" : 3, "Win" : 6}
+instruction_dictionary = {'X' : "Lose", 'Y' : "Draw", 'Z' : "Win"}
+
+outcome_dictionary_inv = {v : k for k,v in outcome_dictionary.items()}
+player_moves_inv = {v : k for k,v in player_moves_dictionary.items()}
+shape_values_inv = {v : k for k,v in shape_values.items()}
 
 def value_of(entry):
     """
@@ -48,6 +53,21 @@ def score_of(entry):
     
     return outcome_scores[outcome] + shape_values[player_move]
 
+def second_score_of(entry):
+    opponent_move, player_move = entry[0], generate_player_move(entry)
+    return score_of([opponent_move, player_move])
+
+def generate_player_move(entry):
+    opponent_move, instruction = entry
+    offset = outcome_dictionary_inv[instruction_dictionary[instruction]]
+    opponent_move = shape_values[opponent_moves_dictionary[opponent_move]]
+    player_move = (opponent_move + offset) % 3
+    if player_move == 0:
+        player_move = 3
+    player_move = player_moves_inv[shape_values_inv[player_move]]
+    return player_move
+    
+    
 # Input file is newline separated. Each line contains a
 # (space-separated) pair of letters denoting first the opponent's move
 # and then your response
@@ -56,4 +76,4 @@ with open(FILENAME) as f:
     # Remove the final, empty element from guide
     guide.pop()
 
-scores = [score_of(entry) for entry in guide]
+scores = [second_score_of(entry) for entry in guide]
