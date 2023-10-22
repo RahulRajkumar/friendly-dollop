@@ -51,11 +51,20 @@ def get_priority(item):
 
 # Input file is newline separated. Each line contains a rucksack
 with open(FILENAME) as f:
-    rucksacks = [rucksack_compartments(line) for line in f.read().split("\n")]
+    rucksacks = [line for line in f.read().split("\n")]
     # Remove the final, empty element from rucksacks
     rucksacks.pop()
+    compartmentalized_rucksacks = [rucksack_compartments(sack) for
+                                   sack in rucksacks]
 
-priorities = [get_priority(duplicates(*pack).pop()) for pack in
-              rucksacks]
+
+### Part One
+
+# Guaranteed that each pack only has one duplicated element across the
+# compartments, so can convert from list of sets to list of elements
+# with .pop()
+duplicates_in_rucksacks = [identify_duplicates(pack).pop() for pack in
+                                                            compartmentalized_rucksacks]
+priorities = [get_priority(element) for element in duplicates_in_rucksacks]
 
 print(sum(priorities))
